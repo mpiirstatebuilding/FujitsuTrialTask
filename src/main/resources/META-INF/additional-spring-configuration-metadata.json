@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "weatherdata.api.url",
+      "type": "java.lang.String",
+      "description": "Source to update weather data from."
+  }
+] }
