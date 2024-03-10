@@ -9,6 +9,6 @@ import java.sql.Timestamp;
 @Data
 @Embeddable
 public class CompositeKey implements Serializable {
-    private String StationName;
-    private Timestamp Timestamp;
+    private String stationName;
+    private Timestamp timestamp;
 }
