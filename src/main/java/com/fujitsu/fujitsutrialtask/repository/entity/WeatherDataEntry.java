@@ -20,5 +20,4 @@ public class WeatherDataEntry {
     private Double windSpeed;
     @Column(name = "PHENOMENON")
     private String phenomenon;
-
 }
