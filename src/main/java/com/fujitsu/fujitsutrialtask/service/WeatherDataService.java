@@ -6,6 +6,7 @@ import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.ParsingExce
 import com.fujitsu.fujitsutrialtask.service.mapper.WeatherDataEntryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,12 +30,12 @@ public class WeatherDataService {
 
     @Value("${weather-data.source}")
     private String apiUrl;
-
     @Value("#{'${weather-data.required-stations}'.split(',')}")
     private List<String> requiredStations;
     final WeatherDataEntryMapper mapper;
     final WeatherDataEntryRepository entryRepository;
 
+    @Scheduled(cron = "${weather-data.update-cron}")
     void updateWeatherData() throws ParsingException {
 
         // parsing
