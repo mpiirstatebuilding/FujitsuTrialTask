@@ -13,7 +13,7 @@ public class WeatherDataEntry {
     @EmbeddedId
     private CompositeKey compositeKey;
     @Column(name = "WMO_CODE")
-    private Integer wmoCode;
+    private String wmoCode;
     @Column(name = "AIR_TEMP")
     private Double airTemperature;
     @Column(name = "WIND_SPEED")
