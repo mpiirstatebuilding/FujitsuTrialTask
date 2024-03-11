@@ -4,10 +4,15 @@
       "name": "weather-data.source",
       "type": "java.lang.String",
       "description": "Source to update weather data from."
-  },
+    },
     {
       "name": "weather-data.required-stations",
       "type": "java.util.List",
       "description": "List of weather stations to take data from."
+    },
+    {
+      "name": "weather-data.update-cron",
+      "type": "java.lang.String",
+      "description": "Cron string for scheduling weather data updates.."
     }
-] }
+  ] }
