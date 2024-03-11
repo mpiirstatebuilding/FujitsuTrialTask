@@ -1,12 +1,10 @@
 package com.fujitsu.fujitsutrialtask.service;
 
 import com.fujitsu.fujitsutrialtask.repository.WeatherDataEntryRepository;
-import com.fujitsu.fujitsutrialtask.repository.entity.CompositeKey;
 import com.fujitsu.fujitsutrialtask.repository.entity.WeatherDataEntry;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.ParsingException;
 import com.fujitsu.fujitsutrialtask.service.mapper.WeatherDataEntryMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
