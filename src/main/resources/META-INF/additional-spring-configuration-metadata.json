@@ -1,8 +1,13 @@
 {
   "properties": [
     {
-      "name": "weatherData.api.url",
+      "name": "weather-data.source",
       "type": "java.lang.String",
       "description": "Source to update weather data from."
-  }
+  },
+    {
+      "name": "weather-data.required-stations",
+      "type": "java.util.List",
+      "description": "List of weather stations to take data from."
+    }
 ] }
