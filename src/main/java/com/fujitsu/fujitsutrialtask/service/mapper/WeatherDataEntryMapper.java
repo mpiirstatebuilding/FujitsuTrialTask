@@ -16,13 +16,15 @@ public class WeatherDataEntryMapper {
 
         if (wmoCode.isBlank()) throw new ParsingException("WMO code absent!");  // wmo code cannot be null
 
+        CompositeKey compositeKey = new CompositeKey(stationName, timestamp);
+
         Double airTemperature = Double.valueOf(stationElement
                 .getElementsByTagName("airtemperature").item(0).getTextContent());
         Double windSpeed = Double.valueOf(stationElement
                 .getElementsByTagName("windspeed").item(0).getTextContent());
         String phenomenon = stationElement.getElementsByTagName("phenomenon").item(0).getTextContent();
 
-        return new WeatherDataEntry(new CompositeKey(stationName, timestamp),
+        return new WeatherDataEntry(compositeKey,
                 wmoCode, airTemperature, windSpeed, phenomenon);
     }
 
