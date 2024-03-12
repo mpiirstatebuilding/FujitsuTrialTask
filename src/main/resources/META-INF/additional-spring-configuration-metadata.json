@@ -14,5 +14,15 @@
       "name": "weather-data.update-cron",
       "type": "java.lang.String",
       "description": "Cron string for scheduling weather data updates.."
+    },
+    {
+      "name": "delivery-fee.rbf.city",
+      "type": "java.util.HashMap",
+      "description": "Map of regional base fees by city."
+    },
+    {
+      "name": "delivery-fee.rbf.vehicle",
+      "type": "java.lang.String",
+      "description": "Map of regional base fee subtractions by vehicle."
     }
   ] }
