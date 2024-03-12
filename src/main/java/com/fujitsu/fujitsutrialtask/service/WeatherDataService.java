@@ -53,7 +53,8 @@ public class WeatherDataService {
             // get timestamp
             String timestampString = doc.getDocumentElement().getAttribute("timestamp");
             if (timestampString.isBlank()) throw new ParsingException("No timestamp provided!"); // timestamp cannot be null
-            Timestamp timestamp = new Timestamp(Long.parseLong(timestampString));
+            long timestampLong = Long.parseLong(timestampString) * 1000;
+            Timestamp timestamp = new Timestamp(timestampLong);
 
             // get stations
             NodeList stationList = doc.getElementsByTagName("station");
