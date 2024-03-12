@@ -24,5 +24,15 @@
       "name": "delivery-fee.rbf.vehicle",
       "type": "java.lang.String",
       "description": "Map of regional base fee subtractions by vehicle."
+    },
+    {
+      "name": "delivery-fee.atef",
+      "type": "java.util.List",
+      "description": "Extra fees based on air temperature. Order is from lowest specified temperature interval to highest."
+    },
+    {
+      "name": "delivery-fee.wsef",
+      "type": "java.util.List",
+      "description": "Extra fees based on wind speed. Order is from lowest specified wind speed interval to highest."
     }
   ] }

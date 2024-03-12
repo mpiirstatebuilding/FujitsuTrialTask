@@ -26,6 +26,8 @@ public class DeliveryFeeService {
         Vehicle(Double RBFSubtract) {
             this.RBFSubtract = RBFSubtract;
         }
+
+        // TODO: make submethods for specified vehicle types as outlined in extra fee business rules
     }
 
 }
