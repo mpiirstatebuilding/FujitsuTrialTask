@@ -44,7 +44,7 @@ public class DeliveryFeeService {
 
         // extra fee rules are only outlined for scooters and bikes, so if the vehicle type is car there's no need to do anymore
         if (!vehicle.equals("car")) {
-            Optional<WeatherDataEntry> entryOptional = null;
+            Optional<WeatherDataEntry> entryOptional = Optional.empty();
             String station = stationDictionary.get(city);
             if (timestampString != null) {
                 long timestampLong = Long.parseLong(timestampString) * 1000;
