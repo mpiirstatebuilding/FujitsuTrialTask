@@ -33,6 +33,11 @@
     {
       "name": "delivery-fee.wsef",
       "type": "java.util.List",
-      "description": "Extra fees based on wind speed. Order is from lowest specified wind speed interval to highest."
+      "description": "Extra fees based on wind speed. Order is from lowest specified wind speed interval to highest. -1 represents error."
+    },
+    {
+      "name": "delivery-fee.wpef",
+      "type": "java.util.HashMap",
+      "description": "Extra fees based on weather phenomena. -1 represents error."
     }
   ] }
