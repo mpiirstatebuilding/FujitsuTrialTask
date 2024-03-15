@@ -18,13 +18,13 @@ import java.time.ZonedDateTime;
 public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ApiException.class, ParsingException.class})
     public void handleWeatherDataServiceExceptions(Exception e) {
-        log.error(e.getMessage(), e);
+        log.error("Failed to update weather data. Cause: " + e);
     }
 
     @ExceptionHandler({DeliveryFeeException.class, WeatherConditionException.class, QueryParameterException.class})
     public ResponseEntity<Object> handleDeliveryFeeServiceExceptions(Exception e) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        log.error("Failed to provide delivery fee. Cause: " + e.getMessage());
+        log.error("Failed to provide delivery fee. Cause: " + e);
         BadRequestException badRequestException = new BadRequestException(e.getMessage(), badRequest, ZonedDateTime.now());
         return new ResponseEntity<>(badRequestException, new HttpHeaders(), badRequest);
     }

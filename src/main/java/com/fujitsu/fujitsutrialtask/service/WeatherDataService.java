@@ -5,6 +5,7 @@ import com.fujitsu.fujitsutrialtask.repository.entity.WeatherDataEntry;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.ParsingException;
 import com.fujitsu.fujitsutrialtask.service.mapper.WeatherDataEntryMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class WeatherDataService {
@@ -82,5 +84,7 @@ public class WeatherDataService {
         } catch (ParserConfigurationException | IOException | SAXException | ParsingException e) {
             throw new ParsingException(e.getMessage());
         }
+
+        log.info("Weather data updated.");
     }
 }
