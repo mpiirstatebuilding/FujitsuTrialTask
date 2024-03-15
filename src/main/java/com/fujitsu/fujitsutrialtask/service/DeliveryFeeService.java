@@ -18,7 +18,6 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-@Slf4j
 public class DeliveryFeeService {
     final WeatherDataEntryRepository repository;
     @Value("#{${delivery-fee.query.city-to-station}}")
