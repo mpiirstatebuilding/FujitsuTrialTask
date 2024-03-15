@@ -70,13 +70,28 @@ public class DeliveryFeeService {
         WeatherDataEntry entry = entryOptional.get();
 
         // extra fees based on air temperature
-        Double airTemperature = entry.getAirTemperature();
-        if (airTemperature < -10.0) {
-            deliveryFee += atef.get(0);
-        } else if (airTemperature <= 0.0) {
-            deliveryFee += atef.get(1);
-        }
+        deliveryFee = getAtef(deliveryFee, entry);
 
+        deliveryFee = getWpef(deliveryFee, entry);
+
+        // extra fees based on wind speed
+        if (vehicle.equals("bike")) {
+            deliveryFee = getWsef(deliveryFee, entry);
+        }
+        return deliveryFee;
+    }
+
+    private Float getWsef(Float deliveryFee, WeatherDataEntry entry) throws WeatherConditionException {
+        Double windSpeed = entry.getWindSpeed();
+        if (windSpeed > 20.0) {
+            throw new WeatherConditionException("Usage of selected vehicle type is forbidden!");
+        } else if (windSpeed >= 10) {
+            deliveryFee += wsef.get(0);
+        }
+        return deliveryFee;
+    }
+
+    private Float getWpef(Float deliveryFee, WeatherDataEntry entry) throws WeatherConditionException {
         String phenomenon = entry.getPhenomenon().toLowerCase();
         if (phenomenon.contains("snow") || phenomenon.contains("sleet")) {
             deliveryFee += wpef.get("snow");
@@ -85,15 +100,15 @@ public class DeliveryFeeService {
         } else if (phenomenon.contains("glaze") || phenomenon.contains("hail") || phenomenon.contains("thunder")) {
             throw new WeatherConditionException("Usage of selected vehicle type is forbidden!");
         }
+        return deliveryFee;
+    }
 
-        // extra fees based on wind speed
-        if (vehicle.equals("bike")) {
-            Double windSpeed = entry.getWindSpeed();
-            if (windSpeed > 20.0) {
-                throw new WeatherConditionException("Usage of selected vehicle type is forbidden!");
-            } else if (windSpeed >= 10) {
-                deliveryFee += wsef.get(0);
-            }
+    private Float getAtef(Float deliveryFee, WeatherDataEntry entry) {
+        Double airTemperature = entry.getAirTemperature();
+        if (airTemperature < -10.0) {
+            deliveryFee += atef.get(0);
+        } else if (airTemperature <= 0.0) {
+            deliveryFee += atef.get(1);
         }
         return deliveryFee;
     }
