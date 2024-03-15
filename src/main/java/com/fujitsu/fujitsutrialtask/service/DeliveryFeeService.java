@@ -6,7 +6,6 @@ import com.fujitsu.fujitsutrialtask.repository.entity.WeatherDataEntry;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.DeliveryFeeException;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.WeatherConditionException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.QueryParameterException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
