@@ -19,17 +19,17 @@ import java.util.Optional;
 @Service
 public class DeliveryFeeService {
     final WeatherDataEntryRepository repository;
-    @Value("#{'${delivery-fee.query.city-to-station}'}")
+    @Value("#{${delivery-fee.query.city-to-station}}")
     HashMap<String, String> stationDictionary;
-    @Value("#{'${delivery-fee.rbf.city}'}")
+    @Value("#{${delivery-fee.rbf.city}}")
     HashMap<String, Float> cityRbf;
-    @Value("#{'${delivery-fee.rbf.vehicle}'}")
+    @Value("#{${delivery-fee.rbf.vehicle}}")
     HashMap<String, Float> vehicleRbf;
     @Value("#{'${delivery-fee.atef}'.split(',')}")
     List<Float> atef;
     @Value("#{'${delivery-fee.wsef}'.split(',')}")
     List<Float> wsef;
-    @Value("#{'${delivery-fee.wpef}'}")
+    @Value("#{${delivery-fee.wpef}}")
     HashMap<String, Float> wpef;
     public Float getDeliveryFee(String city, String vehicle, String timestampString) throws DeliveryFeeException, WeatherConditionException {
         Float deliveryFee = 0.0f;
