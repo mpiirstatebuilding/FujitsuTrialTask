@@ -36,6 +36,9 @@ public class DeliveryFeeService {
     public Float getDeliveryFee(String city, String vehicle, String timestampString) throws DeliveryFeeException, WeatherConditionException {
         Float deliveryFee = 0.0f;
 
+        city = city.toLowerCase();
+        vehicle = vehicle.toLowerCase();
+
         // get city fee
         if (!cityRbf.containsKey(city)) throw new QueryParameterException("Unknown city!");
         deliveryFee += cityRbf.get(city);
