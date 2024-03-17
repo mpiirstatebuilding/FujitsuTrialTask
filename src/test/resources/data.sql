@@ -1,0 +1,3 @@
+INSERT INTO TESTDATA.PUBLIC.WEATHER_DATA VALUES ('Tallinn-Harku', '26038', 10.0, 1.0, '', parsedatetime('17-03-2024 18:15:00.00', 'dd-MM-yyyy hh:mm:ss.SS'))
+INSERT INTO TESTDATA.PUBLIC.WEATHER_DATA VALUES ('Tartu-Tõravere', '26242', 10.0, 1.0, '', parsedatetime('17-03-2024 18:15:00.00', 'dd-MM-yyyy hh:mm:ss.SS'))
+INSERT INTO TESTDATA.PUBLIC.WEATHER_DATA VALUES ('Pärnu', '41803', 10.0, 1.0, '', parsedatetime('17-03-2024 18:15:00.00', 'dd-MM-yyyy hh:mm:ss.SS'))
