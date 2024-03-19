@@ -66,7 +66,7 @@ public class DeliveryFeeService {
         }
 
         if (entryOptional.isEmpty()) { // it would be empty if either the timestamp was not provided or the last clause was unable to find a suitable entry
-            entryOptional = repository.findTopByCompositeKeyStationNameOrderByCompositeKeyTimestampDesc(station);
+            entryOptional = repository.findLatestEntryByStation(station);
             if (entryOptional.isEmpty()) throw new DeliveryFeeException("Could not find relevant weather data!");
         }
 
