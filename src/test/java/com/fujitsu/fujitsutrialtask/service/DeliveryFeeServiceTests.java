@@ -1,14 +1,11 @@
 package com.fujitsu.fujitsutrialtask.service;
 
-import com.fujitsu.fujitsutrialtask.FujitsuTrialTaskApplication;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.DeliveryFeeException;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.WeatherConditionException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,14 +14,10 @@ import java.util.HashMap;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
-        classes = FujitsuTrialTaskApplication.class)
-@AutoConfigureMockMvc
+@SpringBootTest
 @TestPropertySource(
         properties = {"spring.datasource.url = jdbc:h2:file:./src/test/resources/data/weatherDataTest",
                 "spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.H2Dialect"})
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class DeliveryFeeServiceTests {
 
     @Autowired
