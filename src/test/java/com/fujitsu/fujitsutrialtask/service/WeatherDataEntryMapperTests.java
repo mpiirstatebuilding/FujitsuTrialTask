@@ -1,12 +1,12 @@
 package com.fujitsu.fujitsutrialtask.service;
 
+import com.fujitsu.fujitsutrialtask.repository.entity.WeatherDataEntry;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.ParsingException;
 import com.fujitsu.fujitsutrialtask.service.mapper.WeatherDataEntryMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.w3c.dom.Document;
@@ -26,20 +26,19 @@ import static org.mockito.Mockito.mock;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class WeatherDataEntryMapperTests {
-    @Autowired
-    private WeatherDataEntryMapper mapper;
-    private static String stationName = "Pakri";
-    private static String wmoCode = "26029";
-    private static String wmoCodeAbsent = "";
-    private static String airTemp = "2.9";
-    private static String windSpeed = "2.5";
-    private static String phenomenon = "Mist";
-    private static Timestamp timestamp = new Timestamp(Long.parseLong("1711020886000"));
+    private static final WeatherDataEntryMapper mapper = new WeatherDataEntryMapper();
+    private static final String stationName = "Pakri";
+    private static final String wmoCode = "26029";
+    private static final Double airTemp = 2.9;
+    private static final Double windSpeed = 2.5;
+    private static final String phenomenon = "Mist";
+    private static final Timestamp timestamp = new Timestamp(Long.parseLong("1711020886000"));
     private static Element stationElement = mock(Element.class);
     private static Element stationElementNoWmoCode = mock(Element.class);
+    private static WeatherDataEntry normalEntry;
 
     @BeforeAll
-    static void initializeStationElement() throws ParserConfigurationException, IOException, SAXException {
+    static void initializeStationElement() throws ParserConfigurationException, IOException, SAXException, ParsingException {
         String stationXml = """
             <station>
                       <name>Pakri</name>
@@ -68,6 +67,8 @@ class WeatherDataEntryMapperTests {
 
         document = builder.parse(new InputSource((new StringReader(stationXmlNoWmo))));
         stationElementNoWmoCode = (Element) document.getElementsByTagName("station").item(0);
+
+        normalEntry = mapper.elementToWeatherDataEntry(stationElement, stationName, timestamp);
     }
 
     @Test
@@ -84,6 +85,16 @@ class WeatherDataEntryMapperTests {
     @Test
     void testThrowsExceptionIfWmoCodeAbsent() {
         Assertions.assertThrows(ParsingException.class, () -> mapper.elementToWeatherDataEntry(stationElementNoWmoCode, stationName, timestamp));
+    }
+
+    @Test
+    void testDataMappedCorrectly() {
+        Assertions.assertEquals(stationName, normalEntry.getCompositeKey().getStationName());
+        Assertions.assertEquals(timestamp, normalEntry.getCompositeKey().getTimestamp());
+        Assertions.assertEquals(wmoCode, normalEntry.getWmoCode());
+        Assertions.assertEquals(airTemp, normalEntry.getAirTemperature());
+        Assertions.assertEquals(windSpeed, normalEntry.getWindSpeed());
+        Assertions.assertEquals(phenomenon, normalEntry.getPhenomenon());
     }
 
 }
