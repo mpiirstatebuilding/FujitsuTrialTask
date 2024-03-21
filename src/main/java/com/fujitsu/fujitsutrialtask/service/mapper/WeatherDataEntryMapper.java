@@ -17,7 +17,7 @@ public class WeatherDataEntryMapper {
 
         String wmoCode = stationElement.getElementsByTagName("wmocode").item(0).getTextContent();
 
-        if (wmoCode.isBlank()) throw new ParsingException("WMO code absent!");  // wmo code cannot be null
+        if (wmoCode.isBlank()) throw new ParsingException("WMO code absent!");  // wmo code cannot be blank
 
         CompositeKey compositeKey = new CompositeKey(stationName, timestamp);
 
