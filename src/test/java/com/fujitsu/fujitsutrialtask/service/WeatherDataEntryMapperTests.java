@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.sql.Timestamp;
 
@@ -32,6 +34,19 @@ class WeatherDataEntryMapperTests {
 
     @BeforeAll
     static void initializeStationElement() {
+        NodeList mockNodeList = mock(NodeList.class);
+        when(mockNodeList.item(0)).thenReturn(mock(Node.class)); // Simulate one item in the list
+
+        when(stationElement.getElementsByTagName("wmocode")).thenReturn(mockNodeList);
+        when(stationElement.getElementsByTagName("airtemperature")).thenReturn(mockNodeList);
+        when(stationElement.getElementsByTagName("windspeed")).thenReturn(mockNodeList);
+        when(stationElement.getElementsByTagName("phenomenon")).thenReturn(mockNodeList);
+
+        when(stationElementNoWmoCode.getElementsByTagName("wmocode")).thenReturn(mockNodeList);
+        when(stationElementNoWmoCode.getElementsByTagName("airtemperature")).thenReturn(mockNodeList);
+        when(stationElementNoWmoCode.getElementsByTagName("windspeed")).thenReturn(mockNodeList);
+        when(stationElementNoWmoCode.getElementsByTagName("phenomenon")).thenReturn(mockNodeList);
+
         when(stationElement.getElementsByTagName("wmocode").item(0).getTextContent()).thenReturn(wmoCode);
         when(stationElement.getElementsByTagName("airtemperature").item(0).getTextContent()).thenReturn(airTemp);
         when(stationElement.getElementsByTagName("windspeed").item(0).getTextContent()).thenReturn(windSpeed);
