@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface WeatherDataEntryRepository extends JpaRepository<WeatherDataEntry, CompositeKey> {
-    @Query("select e from WeatherDataEntry e where e.compositeKey.stationName = ?1 order by e.compositeKey.timestamp limit 1")
+    @Query("select e from WeatherDataEntry e where e.compositeKey.stationName = ?1 order by e.compositeKey.timestamp desc limit 1")
     Optional<WeatherDataEntry> findLatestEntryByStation(String stationName);
 }
