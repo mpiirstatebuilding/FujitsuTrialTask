@@ -217,4 +217,20 @@ class DeliveryFeeServiceTests {
                     () -> deliveryFeeService.getDeliveryFee(city, "Bike", timestampString));
         }
     }
+
+    @Test
+    void testNoTimestampGivenGetsLatestEntry() {
+        Float expectedTallinnBikeFee = 4.0f; // tallinn fee + 20 > wind speed > 10 fee + rain fee = 3 + 0.5 + 0.5 = 4
+        Float expectedTartuBikeFee = 3.0f; // tartu fee + 0 > airtemp > -10 fee = 2.5 + 0.5 = 3
+
+        try {
+            Assertions.assertEquals(expectedTallinnBikeFee,
+                    deliveryFeeService.getDeliveryFee("Tallinn", "Bike", null));
+            Assertions.assertEquals(expectedTartuBikeFee,
+                    deliveryFeeService.getDeliveryFee("tartu", "Bike", null));
+            Assertions.assertThrows(WeatherConditionException.class, () -> deliveryFeeService.getDeliveryFee("paernu", "Bike", null));
+        } catch (DeliveryFeeException | WeatherConditionException e) {
+            Assertions.fail("Threw exception at wrong time: " + e);
+        }
+    }
 }
