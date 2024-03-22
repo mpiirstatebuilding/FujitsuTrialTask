@@ -1,10 +1,12 @@
 package com.fujitsu.fujitsutrialtask.repository.entity;
 
 import jakarta.persistence.Embeddable;
-import lombok.*;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,6 +14,7 @@ import java.sql.Timestamp;
 @Setter
 @Embeddable
 public class CompositeKey implements Serializable {
-    private String stationName;
-    private Timestamp timestamp;
+
+  private String stationName;
+  private Timestamp timestamp;
 }
