@@ -4,6 +4,7 @@ import com.fujitsu.fujitsutrialtask.repository.WeatherDataEntryRepository;
 import com.fujitsu.fujitsutrialtask.repository.entity.WeatherDataEntry;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.ParsingException;
 import com.fujitsu.fujitsutrialtask.service.mapper.WeatherDataEntryMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Slf4j
 @RequiredArgsConstructor
 @Service

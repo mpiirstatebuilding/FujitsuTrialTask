@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 @ControllerAdvice
 @Slf4j
 public class ErrorHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler({ApiException.class, ParsingException.class})
+    @ExceptionHandler({ParsingException.class})
     public void handleWeatherDataServiceExceptions(Exception e) {
         log.error("Failed to update weather data. Cause: " + e);
     }

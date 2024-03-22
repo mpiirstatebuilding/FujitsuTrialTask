@@ -12,16 +12,31 @@ import java.sql.Timestamp;
 public class WeatherDataEntryMapper {
 
     public WeatherDataEntry elementToWeatherDataEntry(Element stationElement, String stationName, Timestamp timestamp) throws ParsingException {
+        if (stationName == null || stationName.isBlank()) throw new ParsingException("Station name absent!");
+        if (timestamp == null) throw new ParsingException("Timestamp absent!");
+
         String wmoCode = stationElement.getElementsByTagName("wmocode").item(0).getTextContent();
 
-        if (wmoCode.isBlank()) throw new ParsingException("WMO code absent!");  // wmo code cannot be null
+        if (wmoCode.isBlank()) throw new ParsingException("WMO code absent!");  // wmo code cannot be blank
 
         CompositeKey compositeKey = new CompositeKey(stationName, timestamp);
 
-        Double airTemperature = Double.valueOf(stationElement
-                .getElementsByTagName("airtemperature").item(0).getTextContent());
-        Double windSpeed = Double.valueOf(stationElement
-                .getElementsByTagName("windspeed").item(0).getTextContent());
+        String airTemperatureText = stationElement
+                .getElementsByTagName("airtemperature").item(0).getTextContent();
+        Double airTemperature = null;
+
+        if (airTemperatureText != null && !airTemperatureText.isBlank()) {
+            airTemperature = Double.valueOf(airTemperatureText);
+        }
+
+        String windSpeedText = stationElement
+                .getElementsByTagName("windspeed").item(0).getTextContent();
+        Double windSpeed = null;
+
+        if (windSpeedText != null && !windSpeedText.isBlank()) {
+            windSpeed = Double.valueOf(windSpeedText);
+        }
+
         String phenomenon = stationElement.getElementsByTagName("phenomenon").item(0).getTextContent();
 
         return new WeatherDataEntry(compositeKey,
