@@ -16,12 +16,12 @@
       "description": "Cron string for scheduling weather data updates.."
     },
     {
-      "name": "delivery-fee.rbf-city",
+      "name": "delivery-fee.rbf.city",
       "type": "java.util.HashMap",
       "description": "Map of regional base fees by city."
     },
     {
-      "name": "delivery-fee.rbf-vehicle",
+      "name": "delivery-fee.rbf.vehicle",
       "type": "java.lang.String",
       "description": "Map of regional base fee subtractions by vehicle."
     },
@@ -41,7 +41,7 @@
       "description": "Extra fees based on weather phenomena."
     },
     {
-      "name": "delivery-fee.city-to-station",
+      "name": "delivery-fee.query.city-to-station",
       "type": "java.util.HashMap",
       "description": "Dictionary to get the name of a weather station by city."
     }

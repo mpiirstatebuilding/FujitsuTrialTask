@@ -3,17 +3,17 @@ package com.fujitsu.fujitsutrialtask.service;
 import com.fujitsu.fujitsutrialtask.repository.WeatherDataEntryRepository;
 import com.fujitsu.fujitsutrialtask.repository.entity.CompositeKey;
 import com.fujitsu.fujitsutrialtask.repository.entity.WeatherDataEntry;
-import com.fujitsu.fujitsutrialtask.service.config.DeliveryFeeServiceConfig;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.DeliveryFeeException;
 import com.fujitsu.fujitsutrialtask.service.errorhandling.exceptions.WeatherConditionException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.QueryParameterException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -21,13 +21,18 @@ import java.util.Optional;
 @Service
 public class DeliveryFeeService {
     final WeatherDataEntryRepository repository;
-    final DeliveryFeeServiceConfig config;
-    final Map<String, Float> rbfCity = config.getRbfCity();
-    final Map<String, Float> rbfVehicle = config.getRbfVehicle();
-    final Map<String, String> cityToStation = config.getCityToStation();
-    final List<Float> wsef = config.getWsef();
-    final Map<String, Float> wpef = config.getWpef();
-    final List<Float> atef = config.getAtef();
+    @Value("#{${delivery-fee.query.city-to-station}}")
+    HashMap<String, String> stationDictionary;
+    @Value("#{${delivery-fee.rbf.city}}")
+    HashMap<String, Float> cityRbf;
+    @Value("#{${delivery-fee.rbf.vehicle}}")
+    HashMap<String, Float> vehicleRbf;
+    @Value("#{'${delivery-fee.atef}'.split(',')}")
+    List<Float> atef;
+    @Value("#{'${delivery-fee.wsef}'.split(',')}")
+    List<Float> wsef;
+    @Value("#{${delivery-fee.wpef}}")
+    HashMap<String, Float> wpef;
     public Float getDeliveryFee(String city, String vehicle, String timestampString) throws DeliveryFeeException, WeatherConditionException {
         Float deliveryFee = 0.0f;
 
@@ -35,12 +40,12 @@ public class DeliveryFeeService {
         vehicle = vehicle.toLowerCase();
 
         // get city fee
-        if (!rbfCity.containsKey(city)) throw new QueryParameterException("Unknown city!");
-        deliveryFee += rbfCity.get(city);
+        if (!cityRbf.containsKey(city)) throw new QueryParameterException("Unknown city!");
+        deliveryFee += cityRbf.get(city);
 
         // subtract by vehicle
-        if (!rbfVehicle.containsKey(vehicle)) throw new QueryParameterException("Unknown vehicle!");
-        deliveryFee -= rbfVehicle.get(vehicle);
+        if (!vehicleRbf.containsKey(vehicle)) throw new QueryParameterException("Unknown vehicle!");
+        deliveryFee -= vehicleRbf.get(vehicle);
 
         // extra fee rules are only outlined for scooters and bikes, so if the vehicle type is car there's no need to do anymore
         if (!vehicle.equals("car")) {
@@ -53,7 +58,7 @@ public class DeliveryFeeService {
 
     private Float addExtraFees(String city, String vehicle, String timestampString, Float deliveryFee) throws DeliveryFeeException, WeatherConditionException {
         Optional<WeatherDataEntry> entryOptional = Optional.empty();
-        String station = cityToStation.get(city);
+        String station = stationDictionary.get(city);
         if (timestampString != null) {
             long timestampLong = Long.parseLong(timestampString) * 1000;
             Timestamp timestamp = new Timestamp(timestampLong);
