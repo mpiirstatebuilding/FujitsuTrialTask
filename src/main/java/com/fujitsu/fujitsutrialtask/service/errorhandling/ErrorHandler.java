@@ -15,14 +15,14 @@ import java.time.ZonedDateTime;
 
 @ControllerAdvice
 @Slf4j
-public class ErrorHandler extends ResponseEntityExceptionHandler {
+class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ParsingException.class})
-    public void handleWeatherDataServiceExceptions(Exception e) {
+    void handleWeatherDataServiceExceptions(Exception e) {
         log.error("Failed to update weather data. Cause: " + e);
     }
 
     @ExceptionHandler({DeliveryFeeException.class, WeatherConditionException.class, QueryParameterException.class})
-    public ResponseEntity<Object> handleDeliveryFeeServiceExceptions(Exception e) {
+    ResponseEntity<Object> handleDeliveryFeeServiceExceptions(Exception e) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         log.error("Failed to provide delivery fee. Cause: " + e);
         BadRequestException badRequestException = new BadRequestException(e.getMessage(), badRequest, ZonedDateTime.now());

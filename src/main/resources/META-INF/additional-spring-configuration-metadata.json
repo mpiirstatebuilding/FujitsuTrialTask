@@ -45,4 +45,5 @@
       "type": "java.util.HashMap",
       "description": "Dictionary to get the name of a weather station by city."
     }
-  ] }
+  ]
+}

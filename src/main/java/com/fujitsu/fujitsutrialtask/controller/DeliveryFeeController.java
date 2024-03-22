@@ -13,12 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class DeliveryFeeController {
-    final DeliveryFeeService deliveryFeeService;
 
-    @GetMapping("/api/deliveryfee")
-    public Float getDeliveryFee(@RequestParam(name = "city") String city, @RequestParam(name = "vehicle") String vehicle,
-                                 @RequestParam(required = false, name = "timestamp") String timestamp) throws WeatherConditionException, DeliveryFeeException {
-        log.info("Request received.");
-        return deliveryFeeService.getDeliveryFee(city, vehicle, timestamp);
-    }
+  final DeliveryFeeService deliveryFeeService;
+
+  /**
+   * Return delivery fee based on parameters provided by client.
+   *
+   * @param city      - required, permitted cities can be viewed in application.properties
+   * @param vehicle   - required, permitted vehicles can be viewed in application.properties
+   * @param timestamp - optional, UNIX timestamp in seconds
+   * @return delivery fee calculated from input
+   */
+  @GetMapping("/api/deliveryfee")
+  public Float getDeliveryFee(@RequestParam(name = "city") String city,
+      @RequestParam(name = "vehicle") String vehicle,
+      @RequestParam(required = false, name = "timestamp") String timestamp)
+      throws WeatherConditionException, DeliveryFeeException {
+    log.info("Request received.");
+    return deliveryFeeService.getDeliveryFee(city, vehicle, timestamp);
+  }
 }
