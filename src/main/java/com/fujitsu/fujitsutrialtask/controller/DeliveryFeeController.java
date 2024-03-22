@@ -25,8 +25,10 @@ public class DeliveryFeeController {
      * @return delivery fee calculated from input
      */
     @GetMapping("/api/deliveryfee")
-    public Float getDeliveryFee(@RequestParam(name = "city") String city, @RequestParam(name = "vehicle") String vehicle,
-                                 @RequestParam(required = false, name = "timestamp") String timestamp) throws WeatherConditionException, DeliveryFeeException {
+    public Float getDeliveryFee(@RequestParam(name = "city") String city,
+        @RequestParam(name = "vehicle") String vehicle,
+        @RequestParam(required = false, name = "timestamp") String timestamp)
+        throws WeatherConditionException, DeliveryFeeException {
         log.info("Request received.");
         return deliveryFeeService.getDeliveryFee(city, vehicle, timestamp);
     }
