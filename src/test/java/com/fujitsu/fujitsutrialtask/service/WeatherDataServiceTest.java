@@ -26,7 +26,7 @@ class WeatherDataServiceTest {
     private WeatherDataService weatherDataService;
 
     @Test
-    void testUpdateWeatherData() throws Exception {
+    void testUpdateWeatherData() {
 
         weatherDataService.updateWeatherData();
 
