@@ -7,7 +7,7 @@ Thrown when encountering a problem during the parsing of new data.
  */
 @Getter
 @Setter
-public class ParsingException extends Exception {
+public class ParsingException extends RuntimeException {
     public ParsingException(String message) {
         super(message);
     }

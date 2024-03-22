@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class BadRequestException extends Exception {
+public class BadRequestException extends RuntimeException {
     private final String message;
     private final HttpStatus httpStatus;
     private final ZonedDateTime zonedDateTime;
